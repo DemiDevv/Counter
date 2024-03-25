@@ -8,17 +8,19 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-
-    @IBOutlet weak var counterLabel: UILabel!
     
-    @IBOutlet weak var counterButton: UIButton!
+    @IBOutlet weak private var counterLabel: UILabel!
     
-    @IBOutlet weak var refreshButton: UIButton!
+    @IBOutlet weak private var counterButton: UIButton!
     
-    @IBOutlet weak var counterMinusButton: UIButton!
+    @IBOutlet weak private var refreshButton: UIButton!
     
-    @IBOutlet weak var historyTextView: UITextView!
+    @IBOutlet weak private var counterMinusButton: UIButton!
+    
+    @IBOutlet weak private var historyTextView: UITextView!
+    
+    private var counter: Int = 0
+    private var history = "История изменений:\n"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,11 +28,12 @@ class ViewController: UIViewController {
         historyTextView.isEditable = false
         historyTextView.isScrollEnabled = true
     }
-
-    func changeLabel() {
+    
+    private func changeLabel() {
         counterLabel.text = "Значение счетчика: \(counter)"
     }
-    func changeHistoryLabel(_ action: String) {
+    
+    private func changeHistoryLabel(_ action: String) {
             let currentDate = Date()
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
@@ -38,17 +41,15 @@ class ViewController: UIViewController {
             history += "\(dateString): \(action)\n"
             historyTextView.text = history
         }
-    var counter: Int = 0
-    var history = "История изменений:\n"
-
     
-    @IBAction func plusOne(_ sender: Any) {
+    
+    @IBAction private func plusOne(_ sender: Any) {
         counter += 1
         changeLabel()
         changeHistoryLabel("Значение изменено на +1")
     }
     
-    @IBAction func minusOne(_ sender: Any) {
+    @IBAction private func minusOne(_ sender: Any) {
         if counter > 0 {
             counter -= 1
             changeLabel()
@@ -59,7 +60,7 @@ class ViewController: UIViewController {
         
     }
     
-    @IBAction func refreshAll(_ sender: Any) {
+    @IBAction private func refreshAll(_ sender: Any) {
         counter = 0
         changeLabel()
         changeHistoryLabel("Значение сброшено")
